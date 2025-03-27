@@ -9,6 +9,4 @@ public class CharacterDataSO : ScriptableObject
     public float runSpeed;
     public float jumpPower;
     public Sprite characterIcon;
-
-    public Transform cameraPosition;
 }

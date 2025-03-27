@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
+    [SerializeField] private SpawnManager spawnManager;
+
     [SerializeField] private GameObject selectionPanel;
     [SerializeField] private Button playButton;
     [SerializeField] private List<SelectableCharacterCard> characterCards;
@@ -24,11 +26,30 @@ public class CharacterSelectionManager : MonoBehaviour
         OpenSelectionPanel();
     }
 
+    void Start()
+    {
+        spawnManager = SpawnManager.Instance;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenSelectionPanel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if(CursorLockMode.Locked == Cursor.lockState)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 
@@ -68,13 +89,16 @@ public class CharacterSelectionManager : MonoBehaviour
 
         CloseSelectionPanel();
 
-        SpawnManager.Instance.SpawnCharacter(SelectedCharacterData);
+        spawnManager.SpawnCharacter(SelectedCharacterData);
     }
 
     public void OpenSelectionPanel()
     {
         Time.timeScale = 0f;
         selectionPanel.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
 
         if (selectedCard)
         {
