@@ -15,43 +15,53 @@ public class CharacterUpgradeUI : MonoBehaviour
     [SerializeField] private TMP_Text runText;
     [SerializeField] private TMP_Text jumpText;
 
+    [Inject] private SaveSystem _saveSystem;
+
+    private CharacterDataSO currentCharacter;
+
     void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
+    private void UpdateTexts()
     {
-        
-    }
-
-    private void UpdateTexts(CharacterDataSO targetCharacterData)
-    {
-        walkText.text = $"Walk: {targetCharacterData.walkSpeed}";
-        runText.text = $"Run: {targetCharacterData.runSpeed}";
-        jumpText.text = $"Jump: {targetCharacterData.jumpPower}";
+        walkText.text = $"Walk: {currentCharacter.walkSpeed}";
+        runText.text = $"Run: {currentCharacter.runSpeed}";
+        jumpText.text = $"Jump: {currentCharacter.jumpPower}";
     }
 
     public void UpgradeCharacter(CharacterDataSO targetCharacterData)
     {
-        UpdateTexts(targetCharacterData);
+        currentCharacter = targetCharacterData;
 
+        // Önce tüm eski listener’ları temizle
+        walkButton.onClick.RemoveAllListeners();
+        runButton.onClick.RemoveAllListeners();
+        jumpButton.onClick.RemoveAllListeners();
+
+        // Yeni karaktere göre listener ekle
         walkButton.onClick.AddListener(() =>
         {
-            targetCharacterData.walkSpeed += 0.5f;
-            UpdateTexts(targetCharacterData);
+            currentCharacter.walkSpeed += 0.5f;
+            UpdateTexts();
+            _saveSystem.Save(currentCharacter);
         });
 
         runButton.onClick.AddListener(() =>
         {
-            targetCharacterData.runSpeed += 0.5f;
-            UpdateTexts(targetCharacterData);
+            currentCharacter.runSpeed += 0.5f;
+            UpdateTexts();
+            _saveSystem.Save(currentCharacter);
         });
 
         jumpButton.onClick.AddListener(() =>
         {
-            targetCharacterData.jumpPower += 0.5f;
-            UpdateTexts(targetCharacterData);
+            currentCharacter.jumpPower += 0.5f;
+            UpdateTexts();
+            _saveSystem.Save(currentCharacter);
         });
+
+        UpdateTexts();
     }
 }
