@@ -20,13 +20,23 @@ public class InteractionHandler : MonoBehaviour
         Instance = this;
     }
 
+    void OnEnable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent += Interaction;
+    }
+
+    void OnDisable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent -= Interaction;
+    }
+
     public void SetActiveCharacter(Transform cameraTransform, Transform takePoint)
     {
         currentCamera = cameraTransform;
         currentTakePoint = takePoint;
     }
 
-    private void Update()
+    private void Interaction()
     {
         if (currentCamera == null || currentTakePoint == null) return;
 

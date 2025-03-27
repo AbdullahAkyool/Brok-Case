@@ -26,7 +26,17 @@ public class FPSCameraController : MonoBehaviour
         InteractionHandler.Instance.SetActiveCharacter(cam, takePoint);
     }
 
-    void Update()
+    void OnEnable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent += CharacterRotation;
+    }
+
+    void OnDisable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent -= CharacterRotation;
+    }
+
+    private void CharacterRotation()
     {
         if (cameraHolder == null) return;
 

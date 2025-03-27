@@ -17,7 +17,17 @@ public class CharacterMovementController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    void OnEnable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent += CharacterMovement;
+    }
+
+    void OnDisable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent -= CharacterMovement;
+    }
+
+    private void CharacterMovement()
     {
         if (data == null)
         {

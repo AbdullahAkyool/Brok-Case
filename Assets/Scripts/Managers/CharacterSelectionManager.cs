@@ -34,7 +34,17 @@ public class CharacterSelectionManager : MonoBehaviour
         OpenSelectionPanel();
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent += InputHandler;
+    }
+
+    private void OnDisable()
+    {
+        UpdateFixedUpdateManager.OnUpdateEvent -= InputHandler;
+    }
+
+    private void InputHandler()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -43,7 +53,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            if(CursorLockMode.Locked == Cursor.lockState)
+            if (CursorLockMode.Locked == Cursor.lockState)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
