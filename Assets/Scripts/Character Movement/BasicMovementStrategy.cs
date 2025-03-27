@@ -6,13 +6,21 @@ public class BasicMovementStrategy : ICharacterMovementStrategy
 {
     public void Move(Transform transform, Vector3 input, CharacterDataSO stats)
     {
-        Vector3 movement = new Vector3(input.x, 0f, input.z) * stats.walkSpeed * Time.deltaTime;
+        Vector3 moveDirection = Camera.main.transform.forward * input.z + Camera.main.transform.right * input.x;
+        moveDirection.y = 0f;
+        moveDirection.Normalize();
+
+        Vector3 movement = moveDirection * stats.walkSpeed * Time.deltaTime;
         transform.Translate(movement, Space.World);
     }
 
     public void Sprint(Transform transform, Vector3 input, CharacterDataSO stats)
     {
-        Vector3 movement = new Vector3(input.x, 0f, input.z) * stats.runSpeed * Time.deltaTime;
+        Vector3 moveDirection = Camera.main.transform.forward * input.z + Camera.main.transform.right * input.x;
+        moveDirection.y = 0f;
+        moveDirection.Normalize();
+
+        Vector3 movement = moveDirection * stats.runSpeed * Time.deltaTime;
         transform.Translate(movement, Space.World);
     }
 
