@@ -1,21 +1,30 @@
 using UnityEngine;
-using Zenject;
 
 public class CharacterMovementController : MonoBehaviour
 {
-    [Inject] private CharacterDataSO data;
+    private CharacterDataSO data;
     private ICharacterMovementStrategy _movementStrategy;
-
     private Rigidbody _rb;
+
+    public void Init(CharacterDataSO injectedData)
+    {
+        data = injectedData;
+    }
 
     private void Awake()
     {
-        _movementStrategy = new BasicMovementStrategy(); // ileride farklı stratejilerle değiştirebiliriz
+        _movementStrategy = new BasicMovementStrategy();
         _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
+        if (data == null)
+        {
+            Debug.LogError(">>> CharacterDataSO verilmemiş!");
+            return;
+        }
+
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         _movementStrategy.Move(transform, input, data);
 
