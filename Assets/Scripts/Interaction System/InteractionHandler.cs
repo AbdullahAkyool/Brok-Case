@@ -38,7 +38,7 @@ public class InteractionHandler : MonoBehaviour
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
-                    if (currentCollectedObject != null)
+                    if (currentCollectedObject != null && interactable is CollectableObject)
                     {
                         currentCollectedObject.DropObject();
                         currentCollectedObject = null;
