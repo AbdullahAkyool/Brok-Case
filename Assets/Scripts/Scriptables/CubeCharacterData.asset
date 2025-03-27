@@ -15,4 +15,4 @@ MonoBehaviour:
   characterId: Cube Character
   walkSpeed: 1
   runSpeed: 2
-  jumpPower: 1
+  jumpPower: 3
