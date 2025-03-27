@@ -1,4 +1,3 @@
-using Cinemachine;
 using UnityEngine;
 using Zenject;
 
@@ -8,12 +7,12 @@ public class SpawnManager : MonoBehaviour
 
     private CharacterUpgradeUI characterUpgradeUI;
     private InteractionHandler interactionHandler;
+    private CameraManager cameraManager;
 
     [Inject]
     private CharacterFactory characterFactory;
 
     [SerializeField] private GameObject currentCharacter;
-    [SerializeField] private CinemachineVirtualCamera fpsCamera;
 
     private void Awake()
     {
@@ -24,13 +23,14 @@ public class SpawnManager : MonoBehaviour
     {
         characterUpgradeUI = CharacterUpgradeUI.Instance;
         interactionHandler = InteractionHandler.Instance;
+        cameraManager = CameraManager.Instance;
     }
 
     public void SpawnCharacter(CharacterDataSO characterData)
     {
         if (currentCharacter != null)
         {
-            fpsCamera.transform.SetParent(null);
+            cameraManager.SetCameraPosition(cameraManager.FpsCameraDefaultPosition);
 
             if(interactionHandler.CurrentCollectedObject != null)
             {
@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
 
             if (lookController != null)
             {
-                lookController.Init(fpsCamera);
+                lookController.Init();
             }
 
             characterUpgradeUI.UpgradeCharacter(characterData);

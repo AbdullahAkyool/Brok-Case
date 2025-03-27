@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class CollectableItem : CollectableObject
 {
-    
+    //Special Properties for Collectable Items
 }

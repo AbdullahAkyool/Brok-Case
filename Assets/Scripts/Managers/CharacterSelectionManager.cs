@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
-    [SerializeField] private SpawnManager spawnManager;
+    private SpawnManager spawnManager;
+    private CameraManager cameraManager;
 
     [SerializeField] private GameObject selectionPanel;
     [SerializeField] private Button playButton;
@@ -14,6 +15,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public CharacterDataSO SelectedCharacterData { get; private set; }
 
+
     private void Awake()
     {
         foreach (var card in characterCards)
@@ -22,13 +24,14 @@ public class CharacterSelectionManager : MonoBehaviour
         }
 
         playButton.onClick.AddListener(OnPlayClicked);
-
-        OpenSelectionPanel();
     }
 
     void Start()
     {
         spawnManager = SpawnManager.Instance;
+        cameraManager = CameraManager.Instance;
+
+        OpenSelectionPanel();
     }
 
     private void Update()
@@ -99,6 +102,8 @@ public class CharacterSelectionManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+
+        cameraManager.SetCameraPosition(cameraManager.FpsCameraDefaultPosition);
 
         if (selectedCard)
         {

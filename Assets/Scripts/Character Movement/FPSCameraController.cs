@@ -13,11 +13,9 @@ public class FPSCameraController : MonoBehaviour
 
     private float xRotation = 0f;
 
-    public void Init(CinemachineVirtualCamera targetCamera)
+    public void Init()
     {
-        targetCamera.transform.SetParent(cameraHolder);
-        targetCamera.transform.localPosition = Vector3.zero;
-        targetCamera.transform.localRotation = Quaternion.identity;
+        CameraManager.Instance.SetCameraPosition(cameraHolder);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
