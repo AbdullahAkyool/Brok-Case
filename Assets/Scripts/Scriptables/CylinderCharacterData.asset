@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CylinderCharacterData
   m_EditorClassIdentifier: 
   characterId: Cylinder Character
+  characterAddress: CharacterData_Cylinder_Prefab
   walkSpeed: 1
   runSpeed: 2
   jumpPower: 3
+  characterIcon: {fileID: 21300000, guid: 3b14e5c230ad63e49a0b1b378c29e1d6, type: 3}

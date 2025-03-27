@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CapsuleCharacterData
   m_EditorClassIdentifier: 
   characterId: Capsule Character
+  characterAddress: CharacterData_Capsule_Prefab
   walkSpeed: 1
   runSpeed: 2
   jumpPower: 3
+  characterIcon: {fileID: 21300000, guid: 4b622986d30afc14cb251b85f37b24e5, type: 3}

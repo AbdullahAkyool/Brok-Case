@@ -4,7 +4,11 @@ using UnityEngine;
 public class CharacterDataSO : ScriptableObject
 {
     public string characterId;
+    public string characterAddress;
     public float walkSpeed;
     public float runSpeed;
     public float jumpPower;
+    public Sprite characterIcon;
+
+    public Transform cameraPosition;
 }

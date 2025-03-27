@@ -8,5 +8,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<CharacterDataLoader>().AsTransient();
 
         Container.Bind<CharacterFactory>().AsSingle();
+
+        Container.Bind<SaveSystem>().AsSingle();
     }
 }

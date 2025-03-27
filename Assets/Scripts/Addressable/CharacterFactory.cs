@@ -1,8 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Zenject;
+using System;
+
 public class CharacterFactory
 {
     private readonly DiContainer _container;
@@ -20,9 +21,12 @@ public class CharacterFactory
             {
                 GameObject character = handle.Result;
 
-                // Zenject ile stat enjekte et
-                _container.Bind<CharacterDataSO>().FromInstance(dataSO).AsSingle().NonLazy();
-                _container.InjectGameObject(character);
+                // CharacterMovementController’a Init() ile veriyi gönder
+                var controller = character.GetComponent<CharacterMovementController>();
+                if (controller != null)
+                {
+                    controller.Init(dataSO);
+                }
 
                 onCreated?.Invoke(character);
             }
@@ -32,4 +36,5 @@ public class CharacterFactory
             }
         };
     }
+
 }

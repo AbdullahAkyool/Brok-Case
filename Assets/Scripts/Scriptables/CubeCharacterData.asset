@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CubeCharacterData
   m_EditorClassIdentifier: 
   characterId: Cube Character
-  walkSpeed: 1
-  runSpeed: 2
-  jumpPower: 3
+  characterAddress: CharacterData_Cube_Prefab
+  walkSpeed: 2
+  runSpeed: 2.5
+  jumpPower: 4
+  characterIcon: {fileID: 21300000, guid: 2abd03aae8502984981024c6283e4f08, type: 3}
