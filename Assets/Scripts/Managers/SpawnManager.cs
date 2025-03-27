@@ -9,8 +9,8 @@ public class SpawnManager : MonoBehaviour
     private InteractionHandler interactionHandler;
     private CameraManager cameraManager;
 
-    [Inject]
-    private CharacterFactory characterFactory;
+    [Inject] private CharacterFactory characterFactory;
+    [Inject] private SaveSystem saveSystem; // ✅ SaveSystem enjeksiyonu
 
     [SerializeField] private GameObject currentCharacter;
 
@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         {
             cameraManager.SetCameraPosition(cameraManager.FpsCameraDefaultPosition);
 
-            if(interactionHandler.CurrentCollectedObject != null)
+            if (interactionHandler.CurrentCollectedObject != null)
             {
                 interactionHandler.CurrentCollectedObject.DropObject();
             }
@@ -51,6 +51,7 @@ public class SpawnManager : MonoBehaviour
                 lookController.Init();
             }
 
+            saveSystem.Load(characterData);
             characterUpgradeUI.UpgradeCharacter(characterData);
         });
     }

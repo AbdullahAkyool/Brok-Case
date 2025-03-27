@@ -34,13 +34,11 @@ public class CharacterUpgradeUI : MonoBehaviour
     public void UpgradeCharacter(CharacterDataSO targetCharacterData)
     {
         currentCharacter = targetCharacterData;
-
-        // Önce tüm eski listener’ları temizle
+        
         walkButton.onClick.RemoveAllListeners();
         runButton.onClick.RemoveAllListeners();
         jumpButton.onClick.RemoveAllListeners();
-
-        // Yeni karaktere göre listener ekle
+        
         walkButton.onClick.AddListener(() =>
         {
             currentCharacter.walkSpeed += 0.5f;
