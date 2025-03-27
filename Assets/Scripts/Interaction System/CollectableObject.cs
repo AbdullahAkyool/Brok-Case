@@ -7,6 +7,7 @@ public abstract class CollectableObject : MonoBehaviour, IInteractable
     protected Transform currentHolder;
     private Rigidbody rb;
     private Collider clldr;
+    [SerializeField] float throwForce = 5f;
 
     void Awake()
     {
@@ -37,7 +38,14 @@ public abstract class CollectableObject : MonoBehaviour, IInteractable
     public virtual void DropObject()
     {
         transform.SetParent(null);
-        GetRigirdBody().isKinematic = false;
+
+        Rigidbody rb = GetRigirdBody();
+        rb.isKinematic = false;
+        rb.velocity = Vector3.zero; 
+
+        Vector3 throwDir = InteractionHandler.Instance.CurrentTakePoint.forward + Vector3.up * 0.2f;
+        GetRigirdBody().AddForce(throwDir.normalized * throwForce, ForceMode.VelocityChange);
+
         clldr.enabled = true;
         currentHolder = null;
     }
